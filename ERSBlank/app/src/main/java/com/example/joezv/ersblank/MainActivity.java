@@ -7,6 +7,10 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    int cardsToPlay = 0;
+    Boolean p1Slapped = false;
+    Boolean p2Slapped = false;
+
     private static String[] gameDeck = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
             "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s",
             "7c", "7d", "7h", "7s", "8c", "8d", "8h", "8s", "9c", "9d", "9h", "9s",
@@ -15,13 +19,72 @@ public class MainActivity extends AppCompatActivity {
     private static String[] p1Deck;
     private static String[] p2Deck;
 
-    public static int Rank(int num){
+    public static int rank(int num) {
 
         String cardSuit = gameDeck[num];
-        String card = cardSuit.substring(0,1);
+        String card = cardSuit.substring(0, 1);
         return Integer.parseInt(card);
 
     }
+
+
+
+    // this method checks to see if the pile is slappable
+    public static Boolean isSlappable() {
+
+        if (gameDeck[1].rank(1) == gameDeck[0].rank(0)) {
+            return true;
+        } // two in a row check
+
+        else if (gameDeck[].rank(0) == gameDeck[].rank(2)) {
+            return true;
+        } // sandwich check
+
+        else if (gameDeck[].rank(0) - 1 == gameDeck[].rank(1) || gameDeck[].rank(0) + 1 == gameDeck[].rank(1)) {
+            return true;
+        } // consecutive check
+
+        else if ((gameDeck[].rank(0) < 14 && gameDeck[].rank(0) > 10) && (gameDeck[].rank(1) < 14 gameDeck[].rank(1) > 10)) {
+            return true;
+        } // two face cards check
+
+        return false;
+    }
+
+    public static Boolean hasSlapped() {
+
+    }
+
+    public void gameBoss() {
+        // This switch statement deals with the number of cards to play before someone wins the pile
+        switch (rank(0)) {
+            case 14: cardsToPlay += 1; // jack = 11, queen = 12, king = 13, ace = 14
+
+            case 13: cardsToPlay += 1;
+
+            case 12: cardsToPlay += 1;
+
+            case 11: cardsToPlay += 1;
+                     break;
+            default: break;
+        }
+
+        if (hasSlapped()) {
+            if (isSlappable() == true) {
+                if () {
+                    for (i = 0, i < gameDeck[].length, i++) {
+
+                    }
+                }
+            }
+        }
+
+        if (p1Deck[].length == 52 || p2Deck[].length == 52) {
+            onStop(); //game ends
+        }
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +98,14 @@ public class MainActivity extends AppCompatActivity {
         Slap1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                p1Slapped = true;
             }
         });
 
         Slap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                p2Slapped = true;
             }
         });
 
