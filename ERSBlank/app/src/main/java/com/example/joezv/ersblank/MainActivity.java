@@ -39,6 +39,52 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // this method checks to see if the pile is slappable
+    public static Boolean isSlappable() {
+        if (gameDeck[1].rank(1) == gameDeck[0].rank(0)) {
+            return true;
+        } // two in a row check
+        else if (gameDeck[].rank(0) == gameDeck[].rank(2)) {
+            return true;
+        } // sandwich check
+        else if (gameDeck[].rank(0) - 1 == gameDeck[].rank(1) || gameDeck[].rank(0) + 1 == gameDeck[].rank(1)) {
+            return true;
+        } // consecutive check
+        else if ((gameDeck[].rank(0) < 14 && gameDeck[].rank(0) > 10) && (gameDeck[].rank(1) < 14 gameDeck[].rank(1) > 10)) {
+            return true;
+        } // two face cards check
+        return false;
+    }
+
+    public static Boolean hasSlapped() {
+
+    }
+
+    public void gameBoss() {
+        // This switch statement deals with the number of cards to play before someone wins the pile
+        switch (rank(0)) {
+            case 14: cardsToPlay += 1; // jack = 11, queen = 12, king = 13, ace = 14
+            case 13: cardsToPlay += 1;
+            case 12: cardsToPlay += 1;
+            case 11: cardsToPlay += 1;
+                break;
+            default: break;
+        }
+
+        if (hasSlapped()) {
+            if (isSlappable() == true) {
+                if () {
+                    for (i = 0, i < gameDeck[].length, i++) {
+                    }
+                }
+            }
+        }
+
+        if (p1Deck[].length == 52 || p2Deck[].length == 52) {
+            onStop(); //game ends
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
