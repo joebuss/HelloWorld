@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     public static int Rank(int num){
 
         String cardSuit = gameDeck[num];
-        String card = cardSuit.substring(0,1);
+        String cardNum = cardSuit.substring(cardSuit.length()-1, cardSuit.length());//gets letter at end of string
+        String card = cardSuit.replace(cardNum, "");//replaces letter with nothing
         return Integer.parseInt(card);
 
     }
