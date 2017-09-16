@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         Slap1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("hello world!!")
             }
         });
     }
