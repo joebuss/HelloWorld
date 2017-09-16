@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private static String[] p1Deck;
     private static String[] p2Deck;
 
-    public static int Rank(int num){
+    public static int rank(int num){
 
         String cardSuit = gameDeck[num];
         String cardNum = cardSuit.substring(cardSuit.length()-1, cardSuit.length());//gets letter at end of string
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static void Shuffle(String[] gameDeck){
+    public static void shuffle(String[] gameDeck){
 
         int index;
         String temp;
