@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    int cardsToPlay;
+    boolean p1Played = false;
+
     private static String[] gameDeck = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
             "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s",
             "7c", "7d", "7h", "7s", "8c", "8d", "8h", "8s", "9c", "9d", "9h", "9s",
@@ -41,23 +44,23 @@ public class MainActivity extends AppCompatActivity {
 
     // this method checks to see if the pile is slappable
     public static Boolean isSlappable() {
-        if (gameDeck[1].rank(1) == gameDeck[0].rank(0)) {
+        if (rank(1) == rank(0)) {
             return true;
         } // two in a row check
-        else if (gameDeck[].rank(0) == gameDeck[].rank(2)) {
+        else if (rank(0) == rank(2)) {
             return true;
         } // sandwich check
-        else if (gameDeck[].rank(0) - 1 == gameDeck[].rank(1) || gameDeck[].rank(0) + 1 == gameDeck[].rank(1)) {
+        else if (rank(0) - 1 == rank(1) || rank(0) + 1 == rank(1)) {
             return true;
         } // consecutive check
-        else if ((gameDeck[].rank(0) < 14 && gameDeck[].rank(0) > 10) && (gameDeck[].rank(1) < 14 gameDeck[].rank(1) > 10)) {
+        else if ((rank(0) < 14 && rank(0) > 10) && (rank(1) < 14 && rank(1) > 10)) {
             return true;
         } // two face cards check
         return false;
     }
 
     public static Boolean hasSlapped() {
-
+            return true;
     }
 
     public void gameBoss() {
@@ -73,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (hasSlapped()) {
             if (isSlappable() == true) {
-                if () {
-                    for (i = 0, i < gameDeck[].length, i++) {
+                if (p1Played == true) {
+                    for (int i = 0; i < gameDeck.length; i++) {
                     }
                 }
             }
         }
 
-        if (p1Deck[].length == 52 || p2Deck[].length == 52) {
+        if (p1Deck.length == 52 || p2Deck.length == 52) {
             onStop(); //game ends
         }
     }
