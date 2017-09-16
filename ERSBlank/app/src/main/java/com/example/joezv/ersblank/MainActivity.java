@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,20 @@ public class MainActivity extends AppCompatActivity {
         String card = cardSuit.substring(0,1);
         return Integer.parseInt(card);
 
+    }
+
+    public static void Shuffle(String[] gameDeck){
+
+        int index;
+        String temp;
+        Random rand = new Random();
+        for (int x = gameDeck.length -1; x > 0; x--)
+        {
+            index = rand.nextInt(x + 1);
+            temp = gameDeck[index];
+            gameDeck[index] = gameDeck[x];
+            gameDeck[x] = temp;
+        }
     }
 
     @Override
