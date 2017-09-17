@@ -14,10 +14,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    int cardsToPlay;
-    boolean hasSlapped = false;
-    boolean p1Slapped = false;
-    boolean p2Slapped = false;
+    int cardsToPlay; //this int is for checking to see if it is time for the pile to be picked up by a player
+    boolean turn = true; //p1's turn = true, p2's turn = false
+    boolean hasSlapped = false; //checks to see if a player has pressed a slap button
+    boolean p1Slapped = false; //checks to see if player1 clicked their slap button
+    boolean p2Slapped = false; //checks to see if player2 clicked their slap button
 
     private static String[] gameDeckArr = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
             "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s",
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void shuffle(){
-
         Collections.shuffle(gameDeck);
     }
 
@@ -60,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    public void picUpdater(){
+        //possibly get switch parameter?
+    }
+
     public void gameBoss() {
+
         // This switch statement deals with the number of cards to play before someone wins the pile
         switch (rank(0)) {
             case 14: cardsToPlay += 1; // jack = 11, queen = 12, king = 13, ace = 14
@@ -71,25 +76,62 @@ public class MainActivity extends AppCompatActivity {
             default: break;
         }
 
+
+        // checks if a player slapped, then if the pile is slappable
+        // if they should slap, they get the pile and if not they lose the bottom card of their deck as a penalty
+
         if (hasSlapped) {
-            if (isSlappable() == true) {
-                if (p1Slapped == true) {
-                    for (int i = 0; i < gameDeck.size(); i++) {
+            if (isSlappable()) {
+                if (p1Slapped) {
+                    while (gameDeck.size() > 0) {
                         p1Deck.add(gameDeck.get(0));
-                        //append p1Deck
-                        //remove element from gameDeck
+                        gameDeck.remove(gameDeck.get(0));
+                        picUpdater();
                     }
-                    if (p2Slapped) {
+                }
+                if (p2Slapped) {
+                    while (gameDeck.size() > 0) {
+                        p2Deck.add(gameDeck.get(0));
+                        gameDeck.remove(gameDeck.get(0));
+                        picUpdater();
                     }
+                }
+            }
+            else {
+                if (p1Slapped) {
+                    p1Deck.remove(p1Deck.size() - 1);
+                }
+                if (p2Slapped) {
+                    p2Deck.remove(p2Deck.size() - 1);
                 }
             }
         }
 
+        // if the deck is not slappable and one of the players wins the pile, run this method
+        if (cardsToPlay == 0) {
+            if (turn) {
+                while (gameDeck.size() > 0) {
+                    p1Deck.add(gameDeck.get(0));
+                    gameDeck.remove(gameDeck.get(0));
+                    picUpdater();
+                }
+            }
+            if (!turn) {
+                while (gameDeck.size() > 0) {
+                    p2Deck.add(gameDeck.get(0));
+                    gameDeck.remove(gameDeck.get(0));
+                    picUpdater();
+                }
+            }
+        }
 
         if (p1Deck.size() == 52 || p2Deck.size() == 52) {
             onStop(); //game ends
         }
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,28 +152,36 @@ public class MainActivity extends AppCompatActivity {
         Slap1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                hasSlapped = true;
+                p1Slapped = true;
             }
         });
 
         Slap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                hasSlapped = true;
+                p2Slapped = true;
             }
         });
 
         Deck1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("hello world");
+                if (turn) {
+                    gameDeck.add(p1Deck.get(0));
+                    p1Deck.remove(0);
+                }
             }
         });
 
         Deck2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (!turn) {
+                    gameDeck.add(p2Deck.get(0));
+                    p2Deck.remove(0);
+                }
             }
         });
     }
