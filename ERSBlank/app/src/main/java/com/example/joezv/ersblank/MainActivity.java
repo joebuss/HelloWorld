@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     String j = "changed";
-    int cardsToPlay; //this int is for checking to see if it is time for the pile to be picked up by a player
+    int cardsToPlay = 0; //this int is for checking to see if it is time for the pile to be picked up by a player
     boolean turn = true; //p1's turn = true, p2's turn = false
     boolean hasSlapped = false; //checks to see if a player has pressed a slap button
     boolean p1Slapped = false; //checks to see if player1 clicked their slap button
@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             p1Deck.add(gameDeck.get(0));
             gameDeck.remove(0);
         }
+
         //deal to player 2
         for (int i = 0; i < 26; i++) {
             p2Deck.add(gameDeck.get(0));
@@ -161,8 +162,10 @@ public class MainActivity extends AppCompatActivity {
         card.setImageResource(s);
 
         Slap1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                gameBoss();
                 hasSlapped = true;
                 p1Slapped = true;
             }
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         Slap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gameBoss();
                 hasSlapped = true;
                 p2Slapped = true;
             }
@@ -184,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
                     gameDeck.add(p1Deck.get(0));
                     p1Deck.remove(0);
                 }
+                gameBoss();
+                turn = false;
             }
         });
 
@@ -194,8 +200,9 @@ public class MainActivity extends AppCompatActivity {
                     gameDeck.add(p2Deck.get(0));
                     p2Deck.remove(0);
                 }
+                gameBoss();
+                turn = true;
             }
-
         });
     }
 }
