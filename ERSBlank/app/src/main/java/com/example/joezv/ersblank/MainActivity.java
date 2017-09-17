@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    String j = "changed";
     int cardsToPlay; //this int is for checking to see if it is time for the pile to be picked up by a player
     boolean turn = true; //p1's turn = true, p2's turn = false
     boolean hasSlapped = false; //checks to see if a player has pressed a slap button
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void picUpdater(){
         //possibly get switch parameter?
+        //runs switch statement and changes current png files showing on three images
     }
 
     public void gameBoss() {
@@ -137,13 +139,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button Deck1 = (Button)findViewById(R.id.Deck1);
-        Button Deck2 = (Button)findViewById(R.id.Deck2);
-        Button Slap1 = (Button)findViewById(R.id.Slap1);
-        Button Slap2 = (Button)findViewById(R.id.Slap2);
+        final Button Deck1 = (Button)findViewById(R.id.Deck1);
+        final Button Deck2 = (Button)findViewById(R.id.Deck2);
+        final Button Slap1 = (Button)findViewById(R.id.Slap1);
+        final Button Slap2 = (Button)findViewById(R.id.Slap2);
         ImageView card = (ImageView)findViewById(R.id.imageView);
 
-
+        //deal to player 1
+        for (int i = 0; i < 26; i++) {
+            p1Deck.add(gameDeck.get(0));
+            gameDeck.remove(0);
+        }
+        //deal to player 2
+        for (int i = 0; i < 26; i++) {
+            p2Deck.add(gameDeck.get(0));
+            gameDeck.remove(0);
+        }
 
         int s = R.drawable.playing_card_club_3;
 
@@ -168,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         Deck1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Deck1.setText(j);
                 if (turn) {
                     gameDeck.add(p1Deck.get(0));
                     p1Deck.remove(0);
@@ -183,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     p2Deck.remove(0);
                 }
             }
+
         });
     }
 }
