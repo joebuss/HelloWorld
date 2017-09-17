@@ -8,41 +8,39 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     int cardsToPlay;
-    boolean p1Played = false;
+    boolean hasSlapped = false;
+    boolean p1Slapped = false;
+    boolean p2Slapped = false;
 
-    private static String[] gameDeck = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
+    private static String[] gameDeckArr = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
             "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s",
             "7c", "7d", "7h", "7s", "8c", "8d", "8h", "8s", "9c", "9d", "9h", "9s",
             "10c", "10d", "10h", "10s", "11c", "11d", "11h", "11s", "12c", "12d", "12h", "12s",
             "13c", "13d", "13h", "13s", "14c", "14d", "14h", "14s"};
-    private static String[] p1Deck;
-    private static String[] p2Deck;
+    private static ArrayList<String> p1Deck = new ArrayList<>();
+    private static ArrayList<String> p2Deck = new ArrayList<>();
+
+    private static ArrayList<String> gameDeck = new ArrayList<>(Arrays.asList(gameDeckArr));
 
     public static int rank(int num){
 
-        String cardSuit = gameDeck[num];
+        String cardSuit = gameDeck.get(num);
         String cardNum = cardSuit.substring(cardSuit.length()-1, cardSuit.length());//gets letter at end of string
         String card = cardSuit.replace(cardNum, "");//replaces letter with nothing
         return Integer.parseInt(card);
 
     }
 
-    public static void shuffle(String[] gameDeck){
+    public static void shuffle(){
 
-        int index;
-        String temp;
-        Random rand = new Random();
-        for (int x = gameDeck.length -1; x > 0; x--)
-        {
-            index = rand.nextInt(x + 1);
-            temp = gameDeck[index];
-            gameDeck[index] = gameDeck[x];
-            gameDeck[x] = temp;
-        }
+        Collections.shuffle(gameDeck);
     }
 
     // this method checks to see if the pile is slappable
@@ -62,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public static Boolean hasSlapped() {
-            return true;
-    }
-
     public void gameBoss() {
         // This switch statement deals with the number of cards to play before someone wins the pile
         switch (rank(0)) {
@@ -77,16 +71,22 @@ public class MainActivity extends AppCompatActivity {
             default: break;
         }
 
-        if (hasSlapped()) {
+        if (hasSlapped) {
             if (isSlappable() == true) {
-                if (p1Played == true) {
-                    for (int i = 0; i < gameDeck.length; i++) {
+                if (p1Slapped == true) {
+                    for (int i = 0; i < gameDeck.size(); i++) {
+                        p1Deck.add(gameDeck.get(0));
+                        //append p1Deck
+                        //remove element from gameDeck
+                    }
+                    if (p2Slapped) {
                     }
                 }
             }
         }
 
-        if (p1Deck.length == 52 || p2Deck.length == 52) {
+
+        if (p1Deck.size() == 52 || p2Deck.size() == 52) {
             onStop(); //game ends
         }
     }
