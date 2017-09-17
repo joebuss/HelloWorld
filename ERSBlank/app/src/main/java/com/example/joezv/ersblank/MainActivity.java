@@ -629,14 +629,15 @@ public class MainActivity extends AppCompatActivity {
                     if (turn) {
                         if (p2Deck.size() > 0) {
                             gameDeck.add(p2Deck.get(0));
-                            p2Deck.remove(p2Deck.get(0));
+                            p2Deck.remove(0);
 
                         }
                     }
+
                     if (!turn) {
                         if (p1Deck.size() > 0) {
                             gameDeck.add(p1Deck.get(0));
-                            p1Deck.remove(p1Deck.get(0));
+                            p1Deck.remove(0);
 
                         }
                     }
