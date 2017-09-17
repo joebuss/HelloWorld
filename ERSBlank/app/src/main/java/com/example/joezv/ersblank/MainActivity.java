@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         Button Slap1 = (Button)findViewById(R.id.Slap1);
         Button Slap2 = (Button)findViewById(R.id.Slap2);
         ImageView card = (ImageView)findViewById(R.id.imageView);
+
+
+
         int s = R.drawable.playing_card_club_3;
 
         card.setImageResource(s);

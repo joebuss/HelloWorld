@@ -26,11 +26,10 @@
         android:id="@+id/Slap2"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-<<<<<<< HEAD
+
         android:layout_below="@+id/Deck2"
         android:background="@android:color/transparent"
-        android:text="Button" />
-=======
+
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -41,17 +40,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Deck2"
         app:layout_constraintVertical_bias="1.0" />
->>>>>>> 7a121d5b1078d8a21263c3068c76b4631fd2fb4d
 
     <Button
         android:id="@+id/Slap1"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-<<<<<<< HEAD
+
         android:layout_below="@+id/Slap2"
-        android:text="Button" />
-=======
+
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -61,18 +58,14 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
->>>>>>> 7a121d5b1078d8a21263c3068c76b4631fd2fb4d
 
     <Button
         android:id="@+id/Deck1"
 
         android:layout_width="100dp"
-<<<<<<< HEAD
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@+id/Slap1"/>
-=======
+
+        android:layout_below="@+id/Slap1"
+
         android:layout_height="83dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -83,15 +76,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="8dp" />
->>>>>>> 7a121d5b1078d8a21263c3068c76b4631fd2fb4d
+
 
     <Button
         android:id="@+id/Deck2"
         android:layout_width="100dp"
         android:layout_height="83dp"
-<<<<<<< HEAD
-        android:text="Button" />
-=======
+
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -101,6 +92,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
->>>>>>> 7a121d5b1078d8a21263c3068c76b4631fd2fb4d
 
 </RelativeLayout>
