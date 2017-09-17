@@ -630,7 +630,7 @@ public class MainActivity extends AppCompatActivity {
                         if (p2Deck.size() > 0) {
                             gameDeck.add(p2Deck.get(0));
                             p2Deck.remove(0);
-
+                            counted2.setText(String.valueOf(p2Deck.size()));
                         }
                     }
 
@@ -638,7 +638,7 @@ public class MainActivity extends AppCompatActivity {
                         if (p1Deck.size() > 0) {
                             gameDeck.add(p1Deck.get(0));
                             p1Deck.remove(0);
-
+                            counted1.setText(String.valueOf(p1Deck.size()));
                         }
                     }
 
@@ -651,16 +651,6 @@ public class MainActivity extends AppCompatActivity {
                         while (gameDeck.size() > 0) {
                             p1Deck.add(gameDeck.get(0));
                             gameDeck.remove(gameDeck.get(0));
-                            int s = assignCard();
-                            card.setImageResource(s);
-                            if (gameDeck.size() > 1) {
-                                int t = assignCard2();
-                                card2.setImageResource(t);
-                            }
-                            if (gameDeck.size() > 2) {
-                                int u = assignCard3();
-                                card3.setImageResource(u);
-                            }
                             counted1.setText(String.valueOf(p1Deck.size()));
 
                         }
@@ -669,16 +659,6 @@ public class MainActivity extends AppCompatActivity {
                         while (gameDeck.size() > 0) {
                             p2Deck.add(gameDeck.get(0));
                             gameDeck.remove(gameDeck.get(0));
-                            int s = assignCard();
-                            card.setImageResource(s);
-                            if (gameDeck.size() > 1) {
-                                int t = assignCard2();
-                                card2.setImageResource(t);
-                            }
-                            if (gameDeck.size() > 2) {
-                                int u = assignCard3();
-                                card3.setImageResource(u);
-                            }
                             counted2.setText(String.valueOf(p2Deck.size()));
                         }
                     }
@@ -698,32 +678,12 @@ public class MainActivity extends AppCompatActivity {
                 if (p1Slapped && p1Deck.size()>0){
                     gameDeck.add(p1Deck.get(0));
                     p1Deck.remove(p1Deck.get(0));
-
-                    int s = assignCard();
-                    card.setImageResource(s);
-                    if (gameDeck.size() > 1) {
-                        int t = assignCard2();
-                        card2.setImageResource(t);
-                    }
-                    if (gameDeck.size() > 2) {
-                        int u = assignCard3();
-                        card3.setImageResource(u);
-                    }
                     counted1.setText(String.valueOf(p1Deck.size()));
+
                 }
             else if (p2Slapped){
                     gameDeck.add(p2Deck.get(0));
                     p2Deck.remove(p2Deck.get(0));
-                    int s = assignCard();
-                    card.setImageResource(s);
-                    if (gameDeck.size() > 1) {
-                        int t = assignCard2();
-                        card2.setImageResource(t);
-                    }
-                    if (gameDeck.size() > 2) {
-                        int u = assignCard3();
-                        card3.setImageResource(u);
-                    }
                     counted2.setText(String.valueOf(p2Deck.size()));
                 }
             }
@@ -821,11 +781,13 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 26; i++) {
                 p1Deck.add(gameDeck.get(0));
                 gameDeck.remove(0);
+                counted1.setText(String.valueOf(p1Deck.size()));
             }
 
             for (int i = 0; i < 26; i++) {
                 p2Deck.add(gameDeck.get(0));
                 gameDeck.remove(0);
+                counted2.setText(String.valueOf(p2Deck.size()));
             }
             deal = false;
         }
@@ -847,8 +809,22 @@ public class MainActivity extends AppCompatActivity {
                     hasSlapped = true;
                     p1Slapped = true;
                     gameBoss1();
+                    if (gameDeck.size()>0) {
+                        int s = assignCard();
+                        card.setImageResource(s);
+                    }
+                    if (gameDeck.size() > 1) {
+                        int t = assignCard2();
+                        card2.setImageResource(t);
+                    }
+                    if (gameDeck.size() > 2) {
+                        int u = assignCard3();
+                        card3.setImageResource(u);
+                    }
+
                     hasSlapped = false;
                     p1Slapped = false;
+                    counted1.setText(String.valueOf(p1Deck.size()));
                 }
             }
         });
@@ -861,8 +837,21 @@ public class MainActivity extends AppCompatActivity {
                     hasSlapped = true;
                     p2Slapped = true;
                     gameBoss1();
+                    if (gameDeck.size()>0) {
+                        int s = assignCard();
+                        card.setImageResource(s);
+                    }
+                    if (gameDeck.size() > 1) {
+                        int t = assignCard2();
+                        card2.setImageResource(t);
+                    }
+                    if (gameDeck.size() > 2) {
+                        int u = assignCard3();
+                        card3.setImageResource(u);
+                    }
                     hasSlapped = false;
                     p2Slapped = false;
+                    counted2.setText(String.valueOf(p2Deck.size()));
                 }
             }
         });
@@ -876,8 +865,10 @@ public class MainActivity extends AppCompatActivity {
                         gameDeck.add(0, p1Deck.get(0));
                         p1Deck.remove(0);
                         //assigns image to card
-                        int s = assignCard();
-                        card.setImageResource(s);
+                        if (gameDeck.size()>0) {
+                            int s = assignCard();
+                            card.setImageResource(s);
+                        }
                         if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
@@ -890,8 +881,10 @@ public class MainActivity extends AppCompatActivity {
 
                         gameBoss();
 
-                        s = assignCard();
-                        card.setImageResource(s);
+                        if (gameDeck.size()>0) {
+                            int s = assignCard();
+                            card.setImageResource(s);
+                        }
                         if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
@@ -919,8 +912,10 @@ public class MainActivity extends AppCompatActivity {
                         gameDeck.add(0, p2Deck.get(0));
                         p2Deck.remove(0);
                         //assigns image to card
-                        int s = assignCard();
-                        card.setImageResource(s);
+                        if (gameDeck.size()>0) {
+                            int s = assignCard();
+                            card.setImageResource(s);
+                        }
                         if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
@@ -931,8 +926,10 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         gameBoss();
-                        s = assignCard();
-                        card.setImageResource(s);
+                        if (gameDeck.size()>0) {
+                            int s = assignCard();
+                            card.setImageResource(s);
+                        }
                         if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
