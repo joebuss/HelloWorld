@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -96,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         Button Deck2 = (Button)findViewById(R.id.Deck2);
         Button Slap1 = (Button)findViewById(R.id.Slap1);
         Button Slap2 = (Button)findViewById(R.id.Slap2);
+        ImageView card = (ImageView)findViewById(R.id.imageView);
+        int s = R.drawable.playing_card_club_3;
+
+        card.setImageResource(s);
 
         Slap1.setOnClickListener(new View.OnClickListener() {
             @Override
