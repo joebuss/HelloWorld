@@ -1,6 +1,7 @@
 package com.example.joezv.ersblank;
 
 import android.support.annotation.IntegerRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,16 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<String> gameDeck = new ArrayList<>(Arrays.asList(gameDeckArr));
 
-    public static int rank(int num){
+    public static int rank(int num) {
 
         String cardSuit = gameDeck.get(num);
-        String cardNum = cardSuit.substring(cardSuit.length()-1, cardSuit.length());//gets letter at end of string
+        String cardNum = cardSuit.substring(cardSuit.length() - 1, cardSuit.length());//gets letter at end of string
         String card = cardSuit.replace(cardNum, "");//replaces letter with nothing
         return Integer.parseInt(card);
 
     }
 
-    public static void shuffle(){
+    public static void shuffle() {
         Collections.shuffle(gameDeck);
     }
 
@@ -227,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
         return s;
     }
+
     public static int assignCard2() {
         int t = 0;
         switch (gameDeck.get(1)) {
@@ -388,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                 t = R.drawable.playing_card_diamond_a;
                 break;
             default:
-                t=0;
+                t = 0;
                 break;
         }
 
@@ -558,7 +560,7 @@ public class MainActivity extends AppCompatActivity {
                 u = R.drawable.playing_card_diamond_a;
                 break;
             default:
-                u=0;
+                u = 0;
                 break;
         }
 
@@ -567,20 +569,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // this method checks to see if the pile is slappable
+    @NonNull
     public static Boolean isSlappable() {
         if (rank(1) == rank(0)) {
             return true;
@@ -597,48 +587,103 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void picUpdater(){
+    public void picUpdater() {
         //possibly get switch parameter?
         //runs switch statement and changes current png files showing on three images
     }
 
     public void gameBoss() {
+        if (gameDeck.size()>0) {
+            String arystr = gameDeck.get(0);
+            int arystrl = arystr.length();
+            String numStr = null;
+            if (arystrl == 3) {
+                numStr = arystr.substring(0, 2);
+            }
+            if (arystrl == 2) {
+                numStr = arystr.substring(0, 1);
+            }
+            int arynum = Integer.parseInt(numStr);
+            if (arynum > 10) {
+                // This switch statement deals with the number of cards to play before someone wins the pile
+                switch (arynum) {
+                    case 14:
+                        cardsToPlay = 4; // jack = 11, queen = 12, king = 13, ace = 14
+                        break;
+                    case 13:
+                        cardsToPlay = 3;
+                        break;
+                    case 12:
+                        cardsToPlay = 2;
+                        break;
+                    case 11:
+                        cardsToPlay = 1;
+                        break;
+                    default:
+                        cardsToPlay = 0;
+                        break;
+                }
+                //Deals out cards needed to play
 
-        // This switch statement deals with the number of cards to play before someone wins the pile
-        switch (rank(0)) {
-            case 14:
-                cardsToPlay = 4; // jack = 11, queen = 12, king = 13, ace = 14
-                break;
-            case 13:
-                cardsToPlay = 3;
-                break;
-            case 12:
-                cardsToPlay = 2;
-                break;
-            case 11:
-                cardsToPlay = 1;
-                break;
-            default:
-                break;
-        }
-        // if the deck is not slappable and one of the players wins the pile, run this method
-        if (cardsToPlay == 0) {
-            if (turn) {
-                while (gameDeck.size() > 0) {
-                    p1Deck.add(gameDeck.get(0));
-                    gameDeck.remove(gameDeck.get(0));
-                    picUpdater();
+                while (cardsToPlay > 0) {
+                    if (turn) {
+                        if (p2Deck.size() > 0) {
+                            gameDeck.add(p2Deck.get(0));
+                            p2Deck.remove(p2Deck.get(0));
+
+                        }
+                    }
+                    if (!turn) {
+                        if (p1Deck.size() > 0) {
+                            gameDeck.add(p1Deck.get(0));
+                            p1Deck.remove(p1Deck.get(0));
+
+                        }
+                    }
+
+                    cardsToPlay--;
+                }
+
+                // if the deck is not slappable and one of the players wins the pile, run this method
+                if (cardsToPlay == 0) {
+                    if (turn) {
+                        while (gameDeck.size() > 0) {
+                            p1Deck.add(gameDeck.get(0));
+                            gameDeck.remove(gameDeck.get(0));
+                            int s = assignCard();
+                            card.setImageResource(s);
+                            if (gameDeck.size() > 1) {
+                                int t = assignCard2();
+                                card2.setImageResource(t);
+                            }
+                            if (gameDeck.size() > 2) {
+                                int u = assignCard3();
+                                card3.setImageResource(u);
+                            }
+                            counted1.setText(String.valueOf(p1Deck.size()));
+
+                        }
+                    }
+                    if (!turn) {
+                        while (gameDeck.size() > 0) {
+                            p2Deck.add(gameDeck.get(0));
+                            gameDeck.remove(gameDeck.get(0));
+                            int s = assignCard();
+                            card.setImageResource(s);
+                            if (gameDeck.size() > 1) {
+                                int t = assignCard2();
+                                card2.setImageResource(t);
+                            }
+                            if (gameDeck.size() > 2) {
+                                int u = assignCard3();
+                                card3.setImageResource(u);
+                            }
+                            counted2.setText(String.valueOf(p2Deck.size()));
+                        }
+                    }
                 }
             }
-            if (!turn) {
-                while (gameDeck.size() > 0) {
-                    p2Deck.add(gameDeck.get(0));
-                    gameDeck.remove(gameDeck.get(0));
-                    picUpdater();
-                }
-            }
         }
-
         if (p1Deck.size() == 0 || p2Deck.size() == 0) {
             onStop(); //game ends
         }
@@ -647,57 +692,130 @@ public class MainActivity extends AppCompatActivity {
     public void gameBoss1() {
         // checks if a player slapped, then if the pile is slappable
         // if they should slap, they get the pile and if not they lose the bottom card of their deck as a penalty
-
-        if (hasSlapped) {
-            if (isSlappable()) {
-                if (p1Slapped) {
-                    while (gameDeck.size() > 0) {
-                        p1Deck.add(gameDeck.get(0));
-                        gameDeck.remove(gameDeck.get(0));
-                        picUpdater();
-                    }
-                }
-                if (p2Slapped) {
-                    while (gameDeck.size() > 0) {
-                        p2Deck.add(gameDeck.get(0));
-                        gameDeck.remove(gameDeck.get(0));
-                        picUpdater();
-                    }
-                }
-            } else {
-                if (p1Slapped) {
+        if (gameDeck.size() < 2) {
+            if (hasSlapped) {
+                if (p1Slapped && p1Deck.size()>0){
                     gameDeck.add(p1Deck.get(0));
                     p1Deck.remove(p1Deck.get(0));
-                    picUpdater();
+
+                    int s = assignCard();
+                    card.setImageResource(s);
+                    if (gameDeck.size() > 1) {
+                        int t = assignCard2();
+                        card2.setImageResource(t);
+                    }
+                    if (gameDeck.size() > 2) {
+                        int u = assignCard3();
+                        card3.setImageResource(u);
+                    }
+                    counted1.setText(String.valueOf(p1Deck.size()));
                 }
-                if (p2Slapped) {
+            else if (p2Slapped){
                     gameDeck.add(p2Deck.get(0));
                     p2Deck.remove(p2Deck.get(0));
-                    picUpdater();
+                    int s = assignCard();
+                    card.setImageResource(s);
+                    if (gameDeck.size() > 1) {
+                        int t = assignCard2();
+                        card2.setImageResource(t);
+                    }
+                    if (gameDeck.size() > 2) {
+                        int u = assignCard3();
+                        card3.setImageResource(u);
+                    }
+                    counted2.setText(String.valueOf(p2Deck.size()));
+                }
+            }
+            else {
+                if (hasSlapped) {
+                    if (isSlappable()) {
+                        if (p1Slapped) {
+                            while (gameDeck.size() > 0) {
+                                p1Deck.add(gameDeck.get(0));
+                                gameDeck.remove(gameDeck.get(0));
+                                int s = assignCard();
+                                card.setImageResource(s);
+                                if (gameDeck.size() > 1) {
+                                    int t = assignCard2();
+                                    card2.setImageResource(t);
+                                }
+                                if (gameDeck.size() > 2) {
+                                    int u = assignCard3();
+                                    card3.setImageResource(u);
+                                }
+                                counted1.setText(String.valueOf(p1Deck.size()));
+                            }
+                        }
+                        if (p2Slapped) {
+                            while (gameDeck.size() > 0) {
+                                p2Deck.add(gameDeck.get(0));
+                                gameDeck.remove(gameDeck.get(0));
+                                int s = assignCard();
+                                card.setImageResource(s);
+                                if (gameDeck.size() > 1) {
+                                    int t = assignCard2();
+                                    card2.setImageResource(t);
+                                }
+                                if (gameDeck.size() > 2) {
+                                    int u = assignCard3();
+                                    card3.setImageResource(u);
+                                }
+                                counted2.setText(String.valueOf(p2Deck.size()));
+                            }
+                        }
+                    } else {
+                        if (p1Slapped) {
+                            gameDeck.add(p1Deck.get(0));
+                            p1Deck.remove(p1Deck.get(0));
+                            int s = assignCard();
+                            card.setImageResource(s);
+                            if (gameDeck.size() > 1) {
+                                int t = assignCard2();
+                                card2.setImageResource(t);
+                            }
+                            if (gameDeck.size() > 2) {
+                                int u = assignCard3();
+                                card3.setImageResource(u);
+                            }
+                            counted1.setText(String.valueOf(p1Deck.size()));
+                        }
+                        if (p2Slapped) {
+                            gameDeck.add(p2Deck.get(0));
+                            p2Deck.remove(p2Deck.get(0));
+                            int s = assignCard();
+                            card.setImageResource(s);
+                            if (gameDeck.size() > 1) {
+                                int t = assignCard2();
+                                card2.setImageResource(t);
+                            }
+                            if (gameDeck.size() > 2) {
+                                int u = assignCard3();
+                                card3.setImageResource(u);
+                            }
+                            counted2.setText(String.valueOf(p2Deck.size()));
+                        }
+                    }
                 }
             }
         }
     }
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button Deck1 = (Button)findViewById(R.id.Deck1);
-        final Button Deck2 = (Button)findViewById(R.id.Deck2);
-        final Button Slap1 = (Button)findViewById(R.id.Slap1);
-        final Button Slap2 = (Button)findViewById(R.id.Slap2);
-        card = (ImageView)findViewById(R.id.imageView);
-        card2 = (ImageView)findViewById(R.id.imageView2);
-        card3 = (ImageView)findViewById(R.id.imageView3);
-        counted1 = (TextView)findViewById(R.id.count1);
-        counted2 = (TextView)findViewById(R.id.count2);
-        shuffle();
+        final Button Deck1 = (Button) findViewById(R.id.Deck1);
+        final Button Deck2 = (Button) findViewById(R.id.Deck2);
+        final Button Slap1 = (Button) findViewById(R.id.Slap1);
+        final Button Slap2 = (Button) findViewById(R.id.Slap2);
+        card = (ImageView) findViewById(R.id.imageView);
+        card2 = (ImageView) findViewById(R.id.imageView2);
+        card3 = (ImageView) findViewById(R.id.imageView3);
+        counted1 = (TextView) findViewById(R.id.count1);
+        counted2 = (TextView) findViewById(R.id.count2);
+
         while (deal) {
+            shuffle();
             //deal to player 1
             for (int i = 0; i < 26; i++) {
                 p1Deck.add(gameDeck.get(0));
@@ -720,17 +838,16 @@ public class MainActivity extends AppCompatActivity {
         gameBoss1();
 
 
-
-
-
         Slap1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gameDeck.size() > 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                if (gameDeck.size() >= 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
 
                     hasSlapped = true;
                     p1Slapped = true;
-
+                    gameBoss1();
+                    hasSlapped = false;
+                    p1Slapped = false;
                 }
             }
         });
@@ -738,10 +855,13 @@ public class MainActivity extends AppCompatActivity {
         Slap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gameDeck.size() > 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                if (gameDeck.size() >= 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
 
                     hasSlapped = true;
                     p2Slapped = true;
+                    gameBoss1();
+                    hasSlapped = false;
+                    p2Slapped = false;
                 }
             }
         });
@@ -757,20 +877,30 @@ public class MainActivity extends AppCompatActivity {
                         //assigns image to card
                         int s = assignCard();
                         card.setImageResource(s);
-                        if (gameDeck.size()>1) {
+                        if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
                         }
-                        if (gameDeck.size()>2) {
+                        if (gameDeck.size() > 2) {
                             int u = assignCard3();
                             card3.setImageResource(u);
                         }
 
 
-
                         gameBoss();
 
+                        s = assignCard();
+                        card.setImageResource(s);
+                        if (gameDeck.size() > 1) {
+                            int t = assignCard2();
+                            card2.setImageResource(t);
+                        }
+                        if (gameDeck.size() > 2) {
+                            int u = assignCard3();
+                            card3.setImageResource(u);
+                        }
                         counted1.setText(String.valueOf(p1Deck.size()));
+
 
                     }
                 }
@@ -790,16 +920,26 @@ public class MainActivity extends AppCompatActivity {
                         //assigns image to card
                         int s = assignCard();
                         card.setImageResource(s);
-                        if (gameDeck.size()>1) {
+                        if (gameDeck.size() > 1) {
                             int t = assignCard2();
                             card2.setImageResource(t);
                         }
-                        if (gameDeck.size()>2) {
+                        if (gameDeck.size() > 2) {
                             int u = assignCard3();
                             card3.setImageResource(u);
                         }
 
                         gameBoss();
+                        s = assignCard();
+                        card.setImageResource(s);
+                        if (gameDeck.size() > 1) {
+                            int t = assignCard2();
+                            card2.setImageResource(t);
+                        }
+                        if (gameDeck.size() > 2) {
+                            int u = assignCard3();
+                            card3.setImageResource(u);
+                        }
                         counted2.setText(String.valueOf(p2Deck.size()));
                     }
                 }
@@ -809,3 +949,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
