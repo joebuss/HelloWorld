@@ -9,7 +9,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     int cardsToPlay;
-    boolean p1Played = false;
+    boolean hasSlapped = false;
+    boolean p1Slapped = false;
+    boolean p2Slapped = false;
 
     private static String[] gameDeck = {"2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s",
             "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s",
@@ -59,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public static Boolean hasSlapped() {
-            return true;
-    }
-
     public void gameBoss() {
         // This switch statement deals with the number of cards to play before someone wins the pile
         switch (rank(0)) {
@@ -74,11 +72,16 @@ public class MainActivity extends AppCompatActivity {
             default: break;
         }
 
-        if (hasSlapped()) {
+        if (hasSlapped) {
             if (isSlappable() == true) {
-                if (p1Played == true) {
+                if (p1Slapped == true) {
                     for (int i = 0; i < gameDeck.length; i++) {
+                        p1Deck.append(gameDeck[0]);
+                        //append p1Deck
+                        //remove element from gameDeck
                     }
+                if (p2Slapped)
+                }
                 }
             }
         }
