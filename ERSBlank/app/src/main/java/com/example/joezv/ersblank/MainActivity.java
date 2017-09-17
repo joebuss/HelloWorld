@@ -165,18 +165,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                gameBoss();
-                hasSlapped = true;
-                p1Slapped = true;
+                if (gameDeck.size() > 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                    gameBoss();
+                    hasSlapped = true;
+                    p1Slapped = true;
+                }
             }
         });
 
         Slap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameBoss();
-                hasSlapped = true;
-                p2Slapped = true;
+                if (gameDeck.size() > 0 && p1Deck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                    gameBoss();
+                    hasSlapped = true;
+                    p2Slapped = true;
+                }
             }
         });
 
@@ -185,11 +189,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Deck1.setText(j);
                 if (turn) {
-                    gameDeck.add(p1Deck.get(0));
-                    p1Deck.remove(0);
+                    if (gameDeck.size() > 0 && p1Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                        gameDeck.add(p1Deck.get(0));
+                        p1Deck.remove(0);
+                        gameBoss();
+                    }
                 }
-                gameBoss();
-                turn = false;
+
+                turn = false; //change to player 2's turn
             }
         });
 
@@ -197,11 +204,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!turn) {
-                    gameDeck.add(p2Deck.get(0));
-                    p2Deck.remove(0);
+                    if (gameDeck.size() > 0 && p2Deck.size() > 0) { //checks to see if arrays have stuff in them (avoiding nullPointerException)
+                        gameDeck.add(p2Deck.get(0));
+                        p2Deck.remove(0);
+                        gameBoss();
+                    }
                 }
-                gameBoss();
-                turn = true;
+
+                turn = true; //change to player 1's turn
             }
         });
     }
